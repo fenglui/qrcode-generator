@@ -68,9 +68,11 @@ _[Note] call make() before this function._
 | row   | <code>number</code> | 0 ~ moduleCount - 1 |
 | col   | <code>number</code> | 0 ~ moduleCount - 1 |
 
-#### createImgTag(cellSize, margin) => <code>string</code>
+#### createDataURL(cellSize, margin) => <code>string</code>
+#### createImgTag(cellSize, margin, alt) => <code>string</code>
 #### createSvgTag(cellSize, margin) => <code>string</code>
 #### createTableTag(cellSize, margin) => <code>string</code>
+#### createASCII(cellSize, margin) => <code>string</code>
 Helper functions for HTML.
  _[Note] call make() before these functions._
 
@@ -78,9 +80,22 @@ Helper functions for HTML.
 | -------- | ------------------- | --------------------- |
 | cellSize | <code>number</code> | default: 2            |
 | margin   | <code>number</code> | default: cellSize * 4 |
+| alt      | <code>string</code> | (optional)            |
 
+#### createSvgTag(opts) => <code>string</code>
+
+| Param         | Type                 | Description           |
+| ------------- | -------------------- | --------------------- |
+| opts          | <code>object</code>  | default: {}           |
+| opts.cellSize | <code>number</code>  | default: 2            |
+| opts.margin   | <code>number</code>  | default: cellSize * 4 |
+| opts.scalable | <code>boolean</code> | default: false        |
+
+#### renderTo2dContext(context, cellSize) => <code>void</code>
 
 --
+
+This implementation is based on JIS X 0510:1999.
 
 The word 'QR Code' is registered trademark of DENSO WAVE INCORPORATED
 <br/>http://www.denso-wave.com/qrcode/faqpatent-e.html

@@ -90,7 +90,7 @@ class QRCode {
         $this->qrDataList = array();
     }
 
-    function addDataImpl(&$qrData) {
+    function addDataImpl($qrData) {
         $this->qrDataList[] = $qrData;
     }
 
@@ -470,7 +470,7 @@ class QRCode {
         $qrData = $qr->getData(0);
         $length = $qrData->getLength();
 
-        for ($typeNumber = 1; $typeNumber <= 10; $typeNumber++) {
+        for ($typeNumber = 1; $typeNumber <= 40; $typeNumber++) {
             if ($length <= QRUtil::getMaxLength($typeNumber, $mode, $errorCorrectLevel) ) {
                 $qr->setTypeNumber($typeNumber);
                 break;
@@ -550,6 +550,22 @@ class QRCode {
         }
 
         print("</table>");
+    }
+    
+    public function printSVG($size = 2)
+    {
+        $width = $this->getModuleCount() * $size;
+        $height = $width;
+        print('<svg width="' . $width . '" height="' . $height . '" viewBox="0 0 ' . $width . ' ' . $height . '" xmlns="http://www.w3.org/2000/svg">');
+
+        for ($r = 0; $r < $this->getModuleCount(); $r++) {
+            for ($c = 0; $c < $this->getModuleCount(); $c++) {
+                $color = $this->isDark($r, $c) ? "#000000" : "#ffffff";
+                print('<rect x="' . ($c * $size) . '" y="' . ($r * $size) . '" width="' . $size . '" height="' . $size . '" fill="' . $color . '"/>');
+            }
+        }
+
+        print("</svg>");
     }
 }
 
@@ -1569,7 +1585,7 @@ class QRPolynomial {
             if ($i > 0) {
                 $buffer .= ",";
             }
-            $buffer .= QRMath::glog($this->get(i) );
+            $buffer .= QRMath::glog($this->get($i) );
         }
 
         return $buffer;
